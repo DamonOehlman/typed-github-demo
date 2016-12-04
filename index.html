@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Github Flow Demo</title>
+    <link rel="stylesheet" href="demo.css" />
+  </head>
+  <body>
+    <ul class="imageContainer"></ul>
+    <script type="text/javascript" src="moment.js"></script>
+    <script type="text/javascript" src="system.src.js"></script>
+    <script>
+    SystemJS.config({
+      baseURL: '/'
+    });
+
+    SystemJS.import('app.js');
+    </script>
+  </body>
+</html>

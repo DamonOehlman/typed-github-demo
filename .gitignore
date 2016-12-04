@@ -1,0 +1,6 @@
+build/
+node_modules/
+npm-debug.log
+babel.pid
+flow-coverage/
+.DS_Store
