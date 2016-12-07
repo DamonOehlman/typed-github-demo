@@ -40,6 +40,8 @@ export function fetchUser(name: string): Promise<GithubUser> {
             url: TypedMapChecker.requireString(typedJSON, 'html_url'),
         };
       }
+
+      throw new Error('Could not parse response from github API');
     });
 };
 
