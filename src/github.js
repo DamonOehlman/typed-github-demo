@@ -32,12 +32,14 @@ export function fetchUser(name: string): Promise<GithubUser> {
     .then(response => response.json())
     .then(json => TypedJSON.parse(json))
     .then(typedJSON => {
-      return {
-          id: TypedMapChecker.requireNumber(typedJSON, 'id'),
-          name: TypedMapChecker.requireString(typedJSON, 'name'),
-          avatarUrl: TypedMapChecker.requireString(typedJSON, 'avatar_url'),
-          url: TypedMapChecker.requireString(typedJSON, 'html_url'),
-      };
+      if (typedJSON instanceof Map) {
+        return {
+            id: TypedMapChecker.requireNumber(typedJSON, 'id'),
+            name: TypedMapChecker.requireString(typedJSON, 'name'),
+            avatarUrl: TypedMapChecker.requireString(typedJSON, 'avatar_url'),
+            url: TypedMapChecker.requireString(typedJSON, 'html_url'),
+        };
+      }
     });
 };
 
