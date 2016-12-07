@@ -29,8 +29,8 @@ export function fetchUser(name: string): Promise<GithubUser> {
     .catch((err: Error) => {
       throw new GithubFetchUserError(name);
     })
-    .then(response => response.json())
-    .then(json => TypedJSON.parse(json))
+    .then((response: Response) => response.json())
+    .then((json: mixed) => TypedJSON.parse(json))
     .then(typedJSON => {
       if (typedJSON instanceof Map) {
         return {
