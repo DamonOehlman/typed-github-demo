@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint --debug src/app.js",
     "copy-resources": "cp -R src/lib/* build/ && cp {*.html,*.css} build/",
-    "coverage": "flow-coverage-report -i 'src/**/*.js' -x 'src/test/**' -x 'src/lib/**' -t html -t text",
+    "coverage": "flow-coverage-report -i 'src/**/*.js' -x 'src/test/**' -x 'src/lib/**' -t html -t text && open flow-coverage/index.html",
     "check-types": "flow",
     "prestart": "npm run check-types && npm run copy-resources",
     "start": "babel --watch src -d build & echo $! > babel.pid && st -nc -p 8090 -d build/ -i index.html",

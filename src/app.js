@@ -5,13 +5,7 @@ import { List } from './collections.js';
 import { AppUI } from './app-ui.js';
 
 const users: Array<string> = [
-  'jessitron',
-  'joshduck',
-  'DamonOehlman',
-  'chrisdoble',
-  'hearnden',
-  'kouky',
-  'icosahebron'
+  'DamonOehlman'
 ];
 
 class GithubUserWithImage {
@@ -27,8 +21,7 @@ class GithubUserWithImage {
 Promise.all(users.map(fetchUser))
   .then(users => fetchAvatars(users))
   .then(usersWithImages => appendAvatar(usersWithImages))
-  .catch(err => reportError(err))
-  .catch(err => console.error(err));
+  .catch(err => reportError(err));
 
 function byFullName(a: GithubUser, b: GithubUser): number {
   return a.name.localeCompare(b.name);
@@ -54,5 +47,20 @@ function appendAvatar(usersWithImages) {
 }
 
 function reportError(err) {
-  console.error(err);
+  const canvas = document.createElement('canvas');
+  const context = canvas && canvas.getContext('2d');
+
+  if (context) {
+    canvas.width = document.body.clientWidth;
+    canvas.height = document.body.clientHeight;
+
+    context.fillStyle = '#FF0000';
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    context.font = '24px sans-serif';
+    context.fillStyle = '#FFFFFF';
+    context.fillText(err.message, 100, 100);
+  }
+
+  document.body.appendChild(canvas);
 }

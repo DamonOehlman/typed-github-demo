@@ -10,7 +10,7 @@ export type GithubUser = {|
   id: number,
   name: string,
   avatarUrl: string,
-  url: string,
+  url: string
 |};
 
 export function fetchUser(name: string): Promise<GithubUser> {
@@ -26,22 +26,17 @@ export function fetchUser(name: string): Promise<GithubUser> {
   };
 
   return fetch(url, options)
-    .catch(err => {
+    .catch((err: Error) => {
       throw new GithubFetchUserError(name);
     })
     .then(response => response.json())
-    .then((json: mixed) => TypedJSON.parse(json))
-    .then((userResponse: JSON) => {
-      if (userResponse instanceof Map) {
-        return {
-          id: TypedMapChecker.requireNumber(userResponse, 'id'),
-          name: TypedMapChecker.requireString(userResponse, 'name'),
-          avatarUrl: TypedMapChecker.requireString(userResponse, 'avatar_url'),
-          url: TypedMapChecker.requireString(userResponse, 'html_url')
-        };
-      }
-
-      throw new Error('invalid JSON received from github');
+    .then(json => {
+      return {
+          id: json.id,
+          name: json.name,
+          avatarUrl: json.avatar_url,
+          url: json.html_url,
+      };
     });
 };
 
