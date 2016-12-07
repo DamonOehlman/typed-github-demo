@@ -30,12 +30,13 @@ export function fetchUser(name: string): Promise<GithubUser> {
       throw new GithubFetchUserError(name);
     })
     .then(response => response.json())
-    .then(json => {
+    .then(json => TypedJSON.parse(json))
+    .then(typedJSON => {
       return {
-          id: json.id,
-          name: json.name,
-          avatarUrl: json.avatar_url,
-          url: json.html_url,
+          id: typedJSON.id,
+          name: typedJSON.name,
+          avatarUrl: typedJSON.avatar_url,
+          url: typedJSON.html_url,
       };
     });
 };
