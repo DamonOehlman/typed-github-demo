@@ -33,10 +33,10 @@ export function fetchUser(name: string): Promise<GithubUser> {
     .then(json => TypedJSON.parse(json))
     .then(typedJSON => {
       return {
-          id: typedJSON.id,
-          name: typedJSON.name,
-          avatarUrl: typedJSON.avatar_url,
-          url: typedJSON.html_url,
+          id: TypedMapChecker.requireNumber(typedJSON, 'id'),
+          name: TypedMapChecker.requireString(typedJSON, 'name'),
+          avatarUrl: TypedMapChecker.requireString(typedJSON, 'avatar_url'),
+          url: TypedMapChecker.requireString(typedJSON, 'html_url'),
       };
     });
 };
