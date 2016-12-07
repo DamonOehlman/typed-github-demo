@@ -21,7 +21,7 @@ class GithubUserWithImage {
 Promise.all(users.map(fetchUser))
   .then(users => fetchAvatars(users))
   .then(usersWithImages => appendAvatar(usersWithImages))
-  .catch(err => reportError(err));
+  .catch((err: Error) => reportError(err));
 
 function byFullName(a: GithubUser, b: GithubUser): number {
   return a.name.localeCompare(b.name);
@@ -32,7 +32,7 @@ function fetchAvatars(users) {
     return new GithubUserWithImage(user, new Promise((resolve, reject) => {
       const image = new Image();
       image.onload = () => resolve(image);
-      image.onerror = (error) => reject(error);
+      image.onerror = (error: Error) => reject(error);
       image.src = user.avatarUrl;
     }));
   });
