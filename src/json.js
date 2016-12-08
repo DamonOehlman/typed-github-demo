@@ -29,30 +29,3 @@ export class TypedJSON {
     throw new Error("Invalid JSON");
   }
 }
-
-export class TypedMapChecker {
-  static requireNumber(map: JSONObject, field: string): number {
-    const value = map.get(field);
-    if (typeof value == 'number') {
-      return value;
-    }
-
-    throw new TypeError(`expected number type for field: ${field}, got ${String(value)}`);
-  }
-
-  static requireString(map: JSONObject, field: string): string {
-    const value = map.get(field);
-    if (typeof value == 'string') {
-      return value;
-    }
-
-    throw new TypeError(`expected string type for field: ${field}, got ${String(value)}`);
-  }
-
-  static optionalString(map: JSONObject, field: string): ?string {
-    const value = map.get(field);
-    if (typeof value == 'string') {
-      return value;
-    }
-  }
-}
