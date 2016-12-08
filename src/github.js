@@ -1,6 +1,7 @@
 // @flow
 import type { JSON } from './json.js';
-import { TypedJSON, TypedMapChecker } from './json.js';
+import { TypedJSON } from './json.js';
+import { MapPropertyChecker } from './type-checkers.js';
 
 const GITHUB_API_URL = 'https://api.github.com';
 const GITHUB_ACCEPT_HEADER = 'application/vnd.github.v3+json';
@@ -9,8 +10,8 @@ const GITHUB_ACCESS_TOKEN = 'ACCESS_TOKEN_GOES_HERE';
 export type GithubUser = {|
   id: number,
   name: string,
-  avatarUrl: string,
-  url: string
+  avatar_url: string,
+  html_url: string
 |};
 
 export function fetchUser(name: string): Promise<GithubUser> {
@@ -25,6 +26,8 @@ export function fetchUser(name: string): Promise<GithubUser> {
     mode: 'cors'
   };
 
+  const userTypeChecker: MapPropertyChecker<GithubUser> = new MapPropertyChecker();
+
   return fetch(url, options)
     .catch((err: Error) => {
       throw new GithubFetchUserError(name);
@@ -34,10 +37,10 @@ export function fetchUser(name: string): Promise<GithubUser> {
     .then(typedJSON => {
       if (typedJSON instanceof Map) {
         return {
-            id: TypedMapChecker.requireNumber(typedJSON, 'id'),
-            name: TypedMapChecker.requireString(typedJSON, 'name'),
-            avatarUrl: TypedMapChecker.requireString(typedJSON, 'avatar_url'),
-            url: TypedMapChecker.requireString(typedJSON, 'html_url'),
+            id: userTypeChecker.requireNumber(typedJSON, 'id'),
+            name: userTypeChecker.requireString(typedJSON, 'name'),
+            avatar_url: userTypeChecker.requireString(typedJSON, 'avatar_url'),
+            html_url: userTypeChecker.requireString(typedJSON, 'html_url'),
         };
       }
 

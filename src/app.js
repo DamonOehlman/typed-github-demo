@@ -33,7 +33,7 @@ function fetchAvatars(users) {
       const image = new Image();
       image.onload = () => resolve(image);
       image.onerror = (error: Error) => reject(error);
-      image.src = user.avatarUrl;
+      image.src = user.avatar_url;
     }));
   });
 }
