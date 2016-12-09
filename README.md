@@ -21,7 +21,7 @@ To actually run the demo script you will need to replace the value of the `GITHU
 
 ## Questions
 
-Given this is a personal experiment with [https://flowtype.org/](flow) (my experience goes much deeper with [Closure Compiler](https://developers.google.com/closure/compiler/)) there definitely things that can be improved.
+Given this is a personal experiment with [Flow](https://flowtype.org/) (my experience goes much deeper with [Closure Compiler](https://developers.google.com/closure/compiler/)) there are definitely things that can be improved.
 
 So... if you have any questions / improvements, feel free to drop and issue or submit a PR.
 
