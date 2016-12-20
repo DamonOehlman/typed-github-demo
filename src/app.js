@@ -19,12 +19,17 @@ class GithubUserWithImage {
 }
 
 Promise.all(users.map(fetchUser))
+  .then(users => users.filter(Boolean))
   .then(users => fetchAvatars(users))
   .then(usersWithImages => appendAvatar(usersWithImages))
   .catch((err: Error) => reportError(err));
 
 function byFullName(a: GithubUser, b: GithubUser): number {
-  return a.name.localeCompare(b.name);
+  if (a.name && b.name) {
+    return a.name.localeCompare(b.name);
+  }
+
+  return 0;
 }
 
 function fetchAvatars(users) {
